@@ -1,0 +1,14 @@
+body {
+  text-align: center;
+}
+
+#img img {
+  max-width: 100%;
+  display: inline-block;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
