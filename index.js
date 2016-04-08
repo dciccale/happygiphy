@@ -120,6 +120,7 @@ server.route({
         saveImgData(code, imgData);
         reply(template(html, {
           code: code,
+          imgVid: imgData.image_mp4_url,
           imgUrl: imgData.image_url,
           imgWidth: imgData.image_width,
           imgHeight: imgData.image_height
