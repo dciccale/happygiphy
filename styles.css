@@ -1,6 +1,6 @@
 body {
   text-align: center;
-  background: url(http://www.coolholidaygraphics.com/birthday/backgrounds/happybirthday3.gif) center center repeat fixed;
+  background: url('/bg.gif') center center repeat fixed;
 }
 
 img {

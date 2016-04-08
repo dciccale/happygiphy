@@ -100,6 +100,14 @@ server.route({
 
 server.route({
   method: 'GET',
+  path: '/bg.gif',
+  handler: function (req, reply) {
+    reply.file(`${__dirname}/bg.gif`);
+  }
+});
+
+server.route({
+  method: 'GET',
   path: '/powered-by-giphy.png',
   handler: function (req, reply) {
     reply.file(`${__dirname}/powered-by-giphy.png`);
