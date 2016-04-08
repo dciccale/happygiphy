@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Send a happy giphy",
   "main": "index.js",
+  "scripts": {
+    "start": "node ."
+  },
   "repository": {
     "type": "git",
     "url": "git@github.com:dciccale/happygiphy.git"
