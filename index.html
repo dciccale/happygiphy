@@ -4,24 +4,29 @@
     <title>demo</title>
     <link href="styles.css" rel="stylesheet">
 
-    <meta name="twitter:card" content="photo" />
-    <meta name="twitter:site" content="@example" />
-    <meta name="twitter:title" content="My picture" />
-    <meta name="twitter:description" content="A description" />
-    <meta name="twitter:image" content="http://p5cdn4static.sharpschool.com/UserFiles/Servers/Server_3168824/Image/test.png" />
-    <meta name="twitter:url" content="http://dciccale.github.com/happygiphy" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@pierrebecerril" />
+    <meta name="twitter:creator" content="@dciccale" />
+    <meta name="twitter:title" content="Happy Birthday Pierre!" />
+    <meta name="twitter:description" content="Here is your Happy Giphy!" />
+    <meta name="twitter:image" content="{{imgUrl}}" />
+    <meta name="twitter:url" content="http://happygiphy.com/{{code}}" />
   </head>
 
   <body>
 
     <h1>Send Pierre a Happy Giphy!</h1>
 
-    <p id="img"></p>
+    <p>
+      <img src="{{imgUrl}}" width="{{imgWidth}}" height="{{imgHeight}}">
+    </p>
+
+    <p>
+      <a href="/" class="next">Next</a>
+    </p>
 
     <footer>
-      <img src="PoweredBy_200px-White_HorizText.png">
+      <img src="powered-by-giphy.png">
     </footer>
-
-    <script src="script.js"></script>
   </body>
 </html>

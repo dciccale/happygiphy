@@ -1,0 +1,23 @@
+description "Starts happygiphy"
+author      "Denis Ciccale"
+
+start on started mountall
+stop on shutdown
+
+# Automatically Respawn:
+respawn
+respawn limit 99 5
+
+script
+    export HOME="/root"
+    exec node /home/www/happygiphy/server.js >> /var/log/happygiphy.log 2>&1
+end script
+
+pre-start script
+    echo "[`date`] Starting happygiphy" >> /var/log/happygiphy.log
+end script
+
+pre-stop script
+    rm /var/run/nodetest.pid
+    echo "[`date`] Stopping happygiphy" >> /var/log/happygiphy.log
+end script

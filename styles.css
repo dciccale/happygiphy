@@ -1,10 +1,17 @@
 body {
   text-align: center;
+  background: url(http://www.coolholidaygraphics.com/birthday/backgrounds/happybirthday3.gif) center center repeat fixed;
 }
 
-#img img {
+img {
   max-width: 100%;
   display: inline-block;
+}
+
+.next {
+  background-color: green;
+  font-size: 22px;
+  color: white;
 }
 
 footer {
