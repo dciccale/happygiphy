@@ -8,26 +8,14 @@ const Hapi = require('hapi');
 const inert = require('inert');
 const server = new Hapi.Server();
 const config = require('./config');
-const rxCode = /^([a-zA-Z0-9_]){6}$/;
-const giphyUrl = 'http://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag=happy+birthday';
+const apiKey = `api_key=${config.apyKey}`;
+const tag = `tag=happy+birthday`;
+const giphyUrl = 'http://api.giphy.com/v1/gifs';
 const dataFile = `${__dirname}/data.json`;
 
 // create cache
 if (!fs.existsSync(dataFile)) {
   fs.writeFileSync(dataFile, '{}');
-}
-
-function randomCode() {
-  const size = 6;
-  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  const l = chars.length;
-  let text = '';
-
-  for (let i = 0; i < 5; i++ ) {
-    text += chars.charAt(Math.floor(Math.random() * l));
-  }
-
-  return text;
 }
 
 function template(str, data) {
@@ -39,7 +27,7 @@ function template(str, data) {
 
 function fetchImgData(cb) {
   http
-    .get(giphyUrl, (res) => {
+    .get(`${giphyUrl}/random?${apiKey}&${tag}`, (res) => {
       let body = '';
       res.on('data', (chunk) => body += chunk);
       res.on('end', () => {
@@ -57,9 +45,31 @@ function fetchImgData(cb) {
     });
 }
 
-function getImgData(code, cb) {
-  let cachedImgData = cache(code);
-  return cachedImgData ? cb(cachedImgData) : fetchImgData(cb);
+function getRandomImgData(cb) {
+  fetchImgData(cb);
+}
+
+function getImgDataById(id, cb) {
+  const giphyById = `${giphyUrl}/${id}?${apiKey}`;
+
+  http
+    .get(giphyById, (res) => {
+      let body = '';
+      res.on('data', (chunk) => body += chunk);
+      res.on('end', () => {
+        let data = {};
+        try {
+          data = JSON.parse(body).data;
+        } catch (e) {
+          console.log(`Error: ${e}`);
+        }
+        cb(null, data);
+      });
+    })
+    .on('error', (err) => {
+      console.log(`Error: ${err}`);
+      cb(err);
+    });
 }
 
 function saveImgData(code, imgData) {
@@ -82,11 +92,15 @@ function cache(code) {
 server.connection({port: config.port});
 server.register(inert, () => {});
 
+var _imgData;
+
 server.route({
   method: 'GET',
   path: '/',
   handler: function (req, reply) {
-    reply.redirect(`/${randomCode()}`);
+    getRandomImgData((imgData) => {
+      reply.redirect(`/${imgData.id}`);
+    });
   }
 });
 
@@ -116,25 +130,25 @@ server.route({
 
 server.route({
   method: 'GET',
-  path: '/{code}',
+  path: '/{id}',
   handler: function (req, reply) {
-    let code = req.params.code;
+    let id = req.params.id;
 
-    if (rxCode.test(code)) {
-      reply.redirect('/');
-    } else {
-      const html = fs.readFileSync(`${__dirname}/index.html`, 'utf8');
-      getImgData(code, (imgData) => {
-        saveImgData(code, imgData);
+    getImgDataById(id, (err, imgData) => {
+      if (err) {
+        reply('error');
+      } else {
+        const html = fs.readFileSync(`${__dirname}/index.html`, 'utf8');
         reply(template(html, {
-          code: code,
-          imgVid: imgData.image_mp4_url,
-          imgUrl: imgData.image_url,
-          imgWidth: imgData.image_width,
-          imgHeight: imgData.image_height
+          id: id,
+          imgVid: imgData.images.original.mp4,
+          imgStill: imgData.images.original_still.url,
+          imgUrl: imgData.images.original.url,
+          imgWidth: imgData.images.original.width,
+          imgHeight: imgData.images.original.height
         }));
-      });
-    }
+      }
+    });
   }
 });
 
