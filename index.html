@@ -9,7 +9,7 @@
     <link href="styles.css" rel="stylesheet">
 
     <link href="http://fonts.googleapis.com/css?family=Aclonica:regular" rel="stylesheet" type="text/css" >
-    <link rel="canonical" href="http://www.happygiphy.com/{{id}}">
+    <link rel="canonical" href="{{url}}">
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@pierrebecerril" />
@@ -23,8 +23,7 @@
     <!-- <meta name="twitter:player" content="{{imgVid}}" /> -->
     <!-- <meta name="twitter:player:width" content="{{imgWidth}}" /> -->
     <!-- <meta name="twitter:player:height" content="{{imgHeight}}" /> -->
-    <meta name="twitter:url" content="http://www.happygiphy.com/{{id}}" />
-    <script></script>
+    <meta name="twitter:url" content="{{url}}" />
   </head>
 
   <body>
@@ -32,18 +31,20 @@
     <div class="container">
       <main>
         <h1>Send Pierre a Happy Giphy!</h1>
+        <p class="welcome">09 of April 2016 We are celebrating <a href="https://twitter.com/pierrebecerril">@pierrebecerril</a>'s birthday</p>
 
         <p class="img-container">
           <img src="{{imgUrl}}" width="{{imgWidth}}" height="{{imgHeight}}">
         </p>
 
         <p>
-          <a href="https://twitter.com/share" class="twitter-share-button" data-text="Happy Giphy @pierrebecerril!" data-via="happygiphy" data-size="large">Tweet</a>
-          <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+          <a class="btn twitter" rel="nofollow" href="http://twitter.com/" onclick="popUp=window.open('http://twitter.com/intent/tweet?text=Happy Giphy @pierrebecerril! {{url}} via @happygiphy', 'popupwindow', 'scrollbars=yes,width=800,height=400'); popUp.focus(); return false">
+            <i class="visuallyhidden">Tweet HappyGiphy</i>
+          </a>
         </p>
 
         <p>
-        <a href="/" class="next"><span>next</span></a>
+        <a href="/" class="btn orange"><span>next</span></a>
         </p>
       </main>
 

@@ -16,6 +16,18 @@ h1 {
   margin-bottom: 40px;
 }
 
+.welcome {
+  position: relative;
+  color: #FF6F00;
+  margin: 0 auto;
+  font-size: 1.8em;
+  margin-bottom: 20px;
+}
+
+.welcome a {
+  color: #0084FF;
+}
+
 p {
   margin-bottom: 20px;
 }
@@ -57,18 +69,10 @@ img {
   left: auto;
 }
 
-.next {
-  background-color: green;
-  font-size: 22px;
-  /* color: white; */
-}
-
-
-.next {
+.btn {
   position: relative;
   color: rgba(255,255,255,1);
   text-decoration: none;
-  background-color: rgba(219,87,5,1);
   font-weight: 700;
   font-size: 2em;
   display: inline-block;
@@ -76,13 +80,9 @@ img {
   -webkit-border-radius: 8px;
   -moz-border-radius: 8px;
   border-radius: 8px;
-  -webkit-box-shadow: 0px 9px 0px rgba(219,31,5,1), 0px 9px 25px rgba(0,0,0,.7);
-  -moz-box-shadow: 0px 9px 0px rgba(219,31,5,1), 0px 9px 25px rgba(0,0,0,.7);
-  box-shadow: 0px 9px 0px rgba(219,31,5,1), 0px 9px 25px rgba(0,0,0,.7);
   margin-bottom: 20px;
   width: 160px;
   text-align: center;
-
   -webkit-transition: all .1s ease;
   -moz-transition: all .1s ease;
   -ms-transition: all .1s ease;
@@ -90,12 +90,36 @@ img {
   transition: all .1s ease;
 }
 
-.next:active {
+.btn:active {
+  position: relative;
+  top: 6px;
+}
+
+.twitter {
+  width: auto;
+  background-color: #309aea;
+  -webkit-box-shadow: 0px 9px 0px #1A6BA9, 0px 9px 25px rgba(0,0,0,.7);
+  -moz-box-shadow: 0px 9px 0px #1A6BA9, 0px 9px 25px rgba(0,0,0,.7);
+  box-shadow: 0px 9px 0px #1A6BA9, 0px 9px 25px rgba(0,0,0,.7);
+}
+
+.twitter:active {
+  -webkit-box-shadow: 0px 3px 0px #1A6BA9, 0px 3px 6px rgba(0,0,0,.9);
+  -moz-box-shadow: 0px 3px 0px #1A6BA9, 0px 3px 6px rgba(0,0,0,.9);
+  box-shadow: 0px 3px 0px #1A6BA9, 0px 3px 6px rgba(0,0,0,.9);
+}
+
+.orange {
+  background-color: rgba(219,87,5,1);
+  -webkit-box-shadow: 0px 9px 0px rgba(219,31,5,1), 0px 9px 25px rgba(0,0,0,.7);
+  -moz-box-shadow: 0px 9px 0px rgba(219,31,5,1), 0px 9px 25px rgba(0,0,0,.7);
+  box-shadow: 0px 9px 0px rgba(219,31,5,1), 0px 9px 25px rgba(0,0,0,.7);
+}
+
+.orange:active {
   -webkit-box-shadow: 0px 3px 0px rgba(219,31,5,1), 0px 3px 6px rgba(0,0,0,.9);
   -moz-box-shadow: 0px 3px 0px rgba(219,31,5,1), 0px 3px 6px rgba(0,0,0,.9);
   box-shadow: 0px 3px 0px rgba(219,31,5,1), 0px 3px 6px rgba(0,0,0,.9);
-  position: relative;
-  top: 6px;
 }
 
 main {
@@ -105,5 +129,9 @@ main {
 @media (max-width: 580px) {
   h1 {
     font-size: 30px;
+  }
+
+  .welcome {
+    font-size: 20px;
   }
 }

@@ -141,6 +141,7 @@ server.route({
         const html = fs.readFileSync(`${__dirname}/index.html`, 'utf8');
         reply(template(html, {
           id: id,
+          url: `http://www.happygiphy.com/${id}`,
           imgVid: imgData.images.original.mp4,
           imgStill: imgData.images.original_still.url,
           imgUrl: imgData.images.original.url,
