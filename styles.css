@@ -1,22 +1,109 @@
+*{margin:0;padding:0;outline:0;font-size:1em;font-weight:normal;font-style:normal;border:0;text-decoration:none;list-style-type:none}
+
 body {
+  font-family: 'Aclonica', serif;
   text-align: center;
   background: url('/bg.gif') center center repeat fixed;
+}
+
+h1 {
+  font-size: 60px;
+  color: rgba(0, 168, 255, 0.5);
+  text-shadow: 3px 3px 0 rgba(255, 0, 180, 0.5);
+  margin: 0 auto;
+  max-width: 630px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+p {
+  margin-bottom: 20px;
+}
+
+.container {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
 }
 
 img {
   max-width: 100%;
   height: auto;
   display: inline-block;
+  border-radius: 20px;
+}
+
+.img-container {
+  position: relative;
+  display: inline-block;
+}
+
+.img-container:before, .img-container:after {
+  z-index: -1;
+  position: absolute;
+  content: "";
+  bottom: 15px;
+  left: 10px;
+  width: 50%;
+  top: 80%;
+  max-width:300px;
+  background: #777;
+  box-shadow: 0 15px 10px #777;
+  transform: rotate(-3deg);
+}
+.img-container:after {
+  transform: rotate(3deg);
+  right: 10px;
+  left: auto;
 }
 
 .next {
   background-color: green;
   font-size: 22px;
-  color: white;
+  /* color: white; */
 }
 
-footer {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
+
+.next {
+  position: relative;
+  color: rgba(255,255,255,1);
+  text-decoration: none;
+  background-color: rgba(219,87,5,1);
+  font-weight: 700;
+  font-size: 2em;
+  display: inline-block;
+  padding: 10px 40px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+  -webkit-box-shadow: 0px 9px 0px rgba(219,31,5,1), 0px 9px 25px rgba(0,0,0,.7);
+  -moz-box-shadow: 0px 9px 0px rgba(219,31,5,1), 0px 9px 25px rgba(0,0,0,.7);
+  box-shadow: 0px 9px 0px rgba(219,31,5,1), 0px 9px 25px rgba(0,0,0,.7);
+  margin-bottom: 20px;
+  width: 160px;
+  text-align: center;
+
+  -webkit-transition: all .1s ease;
+  -moz-transition: all .1s ease;
+  -ms-transition: all .1s ease;
+  -o-transition: all .1s ease;
+  transition: all .1s ease;
+}
+
+a:active {
+  -webkit-box-shadow: 0px 3px 0px rgba(219,31,5,1), 0px 3px 6px rgba(0,0,0,.9);
+  -moz-box-shadow: 0px 3px 0px rgba(219,31,5,1), 0px 3px 6px rgba(0,0,0,.9);
+  box-shadow: 0px 3px 0px rgba(219,31,5,1), 0px 3px 6px rgba(0,0,0,.9);
+  position: relative;
+  top: 6px;
+}
+
+main {
+  flex: 1;
+}
+
+@media (max-width: 580px) {
+  h1 {
+    font-size: 30px;
+  }
 }
