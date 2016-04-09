@@ -11,12 +11,6 @@ const config = require('./config');
 const apiKey = `api_key=${config.apiKey}`;
 const tag = 'tag=happy+birthday';
 const giphyUrl = 'http://api.giphy.com/v1/gifs';
-const dataFile = `${__dirname}/data.json`;
-
-// create cache
-if (!fs.existsSync(dataFile)) {
-  fs.writeFileSync(dataFile, '{}');
-}
 
 function template(str, data) {
   for (let key in data) {
@@ -25,9 +19,9 @@ function template(str, data) {
   return str;
 }
 
-function fetchImgData(cb) {
+function fetchImgData(url, cb) {
   http
-    .get(`${giphyUrl}/random?${apiKey}&${tag}`, (res) => {
+    .get(url, (res) => {
       let body = '';
       res.on('data', (chunk) => body += chunk);
       res.on('end', () => {
@@ -36,70 +30,37 @@ function fetchImgData(cb) {
           data = JSON.parse(body).data;
         } catch (e) {
           console.log(`Error: ${e}`);
-        }
-        cb(data);
-      });
-    })
-    .on('error', (err) => {
-      console.log(`Error: ${err}`);
-    });
-}
-
-function getRandomImgData(cb) {
-  fetchImgData(cb);
-}
-
-function getImgDataById(id, cb) {
-  const giphyById = `${giphyUrl}/${id}?${apiKey}`;
-
-  http
-    .get(giphyById, (res) => {
-      let body = '';
-      res.on('data', (chunk) => body += chunk);
-      res.on('end', () => {
-        let data = {};
-        try {
-          data = JSON.parse(body).data;
-        } catch (e) {
-          console.log(`Error: ${e}`);
+          cb(e);
         }
         cb(null, data);
       });
     })
-    .on('error', (err) => {
-      console.log(`Error: ${err}`);
-      cb(err);
+    .on('error', (e) => {
+      console.log(`Error: ${e}`);
     });
 }
 
-function saveImgData(code, imgData) {
-  let data = readCache();
-  if (!data[code]) {
-    data[code] = imgData;
-    fs.writeFileSync(dataFile, JSON.stringify(data, null, 2));
-  }
+function getRandomImgData(cb) {
+  fetchImgData(`${giphyUrl}/random?${apiKey}&${tag}`, cb);
 }
 
-function readCache() {
-  return JSON.parse(fs.readFileSync(dataFile, 'utf8'));
-}
-
-function cache(code) {
-  let data = readCache();
-  return data[code];
+function getImgDataById(id, cb) {
+  fetchImgData(`${giphyUrl}/${id}?${apiKey}`, cb);
 }
 
 server.connection({port: config.port});
 server.register(inert, () => {});
 
-var _imgData;
-
 server.route({
   method: 'GET',
   path: '/',
   handler: function (req, reply) {
-    getRandomImgData((imgData) => {
-      reply.redirect(`/${imgData.id}`);
+    getRandomImgData((e, imgData) => {
+      if (e) {
+        reply('Error try again');
+      } else {
+        reply.redirect(`/${imgData.id}`);
+      }
     });
   }
 });
@@ -134,8 +95,8 @@ server.route({
   handler: function (req, reply) {
     let id = req.params.id;
 
-    getImgDataById(id, (err, imgData) => {
-      if (err) {
+    getImgDataById(id, (e, imgData) => {
+      if (e) {
         reply('error');
       } else {
         const html = fs.readFileSync(`${__dirname}/index.html`, 'utf8');
@@ -153,9 +114,9 @@ server.route({
   }
 });
 
-server.start((err) => {
-  if (err) {
-    throw err;
+server.start((e) => {
+  if (e) {
+    throw e;
   }
 
   console.log('Server listening on', server.info.uri);
