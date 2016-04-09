@@ -8,8 +8,8 @@ const Hapi = require('hapi');
 const inert = require('inert');
 const server = new Hapi.Server();
 const config = require('./config');
-const apiKey = `api_key=${config.apyKey}`;
-const tag = `tag=happy+birthday`;
+const apiKey = `api_key=${config.apiKey}`;
+const tag = 'tag=happy+birthday';
 const giphyUrl = 'http://api.giphy.com/v1/gifs';
 const dataFile = `${__dirname}/data.json`;
 
